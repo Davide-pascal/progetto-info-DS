@@ -18,6 +18,74 @@ void menu(char &scelta){
 	cin >> scelta;
 }
 
+struct corso{
+
+    string codice_corso;
+    string descrizione_corso;
+
+};
+
+struct materia{
+
+    string codice_materia;
+    string descrizione_materia;
+    corso codice_corso;
+
+};
+
+struct studente{
+
+    string matricola_studente;
+    string cognome_studente;
+    string nome_studente;
+    corso codice_corso;
+
+};
+
+vector <string> corso;
+vector <string> materia;
+vector <string> studente;
+
+void caricaDati(){
+
+    ifstream fin("corsi.csv");
+    string s;
+
+    getline(fin, s);
+
+    while (!fin.eof()) {
+
+        string codice_corso, descrizione_corso, codice_materia, descrizione_materia;
+        string matricola_studente, cognome_studente, nome_studente;
+
+        getline(fin, codice_corso, ',');
+
+        if (codice_corso == "") { // ho trovato una riga vuota
+
+            break;
+
+            }
+
+        getline(fin, descrizione_corso, ',');
+
+        getline(fin, codice_corso, ',');
+
+        getline(fin, codice_materia, ',');
+
+        getline(fin, descrizione_materia, ',');
+
+        getline(fin, matricola_studente, ',');
+
+        getline(fin, cognome_studente, ',');
+
+        getline(fin, nome_studente);
+
+    }
+
+    fin.close();
+
+}
+
 int main(){
 
     char scelta;
