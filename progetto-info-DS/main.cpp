@@ -18,33 +18,24 @@ void menu(char &scelta){
 	cin >> scelta;
 }
 
-struct corso{
-
-    string codice_corso;
-    string descrizione_corso;
-
-};
-
-struct materia{
-
-    string codice_materia;
-    string descrizione_materia;
-    corso codice_corso;
-
-};
-
 struct studente{
 
     string matricola_studente;
     string cognome_studente;
     string nome_studente;
-    corso codice_corso;
+    string codice_materia;
+    string descrizione_materia;
+    string codice_corso;
+    string descrizione_corso;
 
 };
 
-vector <string> corso;
-vector <string> materia;
-vector <string> studente;
+struct nodo{
+
+    string info;
+    nodo* next;
+
+};
 
 void caricaDati(){
 
@@ -86,9 +77,42 @@ void caricaDati(){
 
 }
 
+//void ricerca()
+
 int main(){
 
     char scelta;
+    map<string,string> ric_c;
+    map<string,vector<string>> ric_a;
+    vector<string> modifiche;
+
+    studente dati;
+
+    cout<<"Libro: ";
+    cin>>dati.codice_corso;
+
+    cout<<"Autore: ";
+    cin>>dati.descrizione_corso;
+
+    cout<<"Codice: ";
+    cin>>dati.codice_materia;
+
+    cout<<"Prezzo: ";
+    cin>>dati.descrizione_materia;
+
+    cout<<"Isbn: ";
+    cin>>dati.matricola_studente;
+
+    cout<<"Prezzo: ";
+    cin>>dati.cognome_studente;
+
+    cout<<"Isbn: ";
+    cin>>dati.nome_studente;
+
+    //ric_c[dati.codice]=dati.libro;
+    //ric_a[dati.autore].push_back(dati.libro);
+
+//    inserimento(raccolta,dati);
 
     menu(scelta);
 	while(scelta != 'X'){
