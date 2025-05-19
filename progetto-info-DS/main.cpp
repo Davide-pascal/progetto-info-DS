@@ -15,7 +15,9 @@ void menu(char &scelta){
 	cout << "8. Inserisci un nuovo studente.\n";
 	cout << "9. Salva i dati su file.\n";
 	cout << "X. Esci.\n";
+	cout << "==================================\n";
 	cin >> scelta;
+	cout << "==================================\n";
 }
 
 struct studente{
@@ -30,12 +32,7 @@ struct studente{
 
 };
 
-struct nodo{
-
-    string info;
-    nodo* next;
-
-};
+vector<studente> studenti;
 
 void caricaDati(){
 
@@ -71,43 +68,29 @@ void caricaDati(){
 
         getline(fin, nome_studente);
 
+        studente nuovo_studente = {codice_corso, descrizione_corso, codice_materia, descrizione_materia, matricola_studente, cognome_studente, nome_studente};
+        studenti.push_back(nuovo_studente);
+
     }
 
     fin.close();
 
 }
 
-//void ricerca()
+void stampa() {
+    for ( auto s : studenti) {
+        cout << "Matricola: " << s.matricola_studente << ", Nome: " << s.nome_studente << ", Cognome: " << s.cognome_studente << ", Corso: " << s.descrizione_corso << ", Materia: " << s.descrizione_materia << endl;
+    }
+}
 
 int main(){
 
     char scelta;
-    map<string,string> ric_c;
+    /*map<string,string> ric_c;
     map<string,vector<string>> ric_a;
     vector<string> modifiche;
-
+    */
     studente dati;
-
-    cout<<"Libro: ";
-    cin>>dati.codice_corso;
-
-    cout<<"Autore: ";
-    cin>>dati.descrizione_corso;
-
-    cout<<"Codice: ";
-    cin>>dati.codice_materia;
-
-    cout<<"Prezzo: ";
-    cin>>dati.descrizione_materia;
-
-    cout<<"Isbn: ";
-    cin>>dati.matricola_studente;
-
-    cout<<"Prezzo: ";
-    cin>>dati.cognome_studente;
-
-    cout<<"Isbn: ";
-    cin>>dati.nome_studente;
 
     //ric_c[dati.codice]=dati.libro;
     //ric_a[dati.autore].push_back(dati.libro);
@@ -120,6 +103,9 @@ int main(){
 	    switch(scelta){
 
         case '0':
+
+            caricaDati();
+            stampa();
 
             break;
 
