@@ -22,14 +22,13 @@ void menu(char &scelta){
 
 struct studente{
 
+    string codice_corso;
+    string descrizione_corso;
+    string codice_materia;
+    string descrizione_materia;
     string matricola_studente;
     string cognome_studente;
     string nome_studente;
-    string codice_materia;
-    string descrizione_materia;
-    string codice_corso;
-    string descrizione_corso;
-
 };
 
 vector<studente> studenti;
@@ -56,8 +55,6 @@ void caricaDati(){
 
         getline(fin, descrizione_corso, ',');
 
-        getline(fin, codice_corso, ',');
-
         getline(fin, codice_materia, ',');
 
         getline(fin, descrizione_materia, ',');
@@ -79,23 +76,18 @@ void caricaDati(){
 
 void stampa() {
     for ( auto s : studenti) {
-        cout << "Matricola: " << s.matricola_studente << ", Nome: " << s.nome_studente << ", Cognome: " << s.cognome_studente << ", Corso: " << s.descrizione_corso << ", Materia: " << s.descrizione_materia << endl;
+        cout << "Codice Corso: " << s.codice_corso << ", Descrizione Corso: " << s.descrizione_corso << ", Codice Materia: " << s.codice_materia << ", Descrizione Materia: " << s.descrizione_materia << ", ";
+        cout << "Matricola: " << s.matricola_studente << ", Nome: " << s.nome_studente << ", Cognome: " << s.cognome_studente << endl;
     }
 }
 
 int main(){
-
+    string matricola;
+    string cognome;
     char scelta;
-    /*map<string,string> ric_c;
+    map<string,string> ric_c;
     map<string,vector<string>> ric_a;
-    vector<string> modifiche;
-    */
     studente dati;
-
-    //ric_c[dati.codice]=dati.libro;
-    //ric_a[dati.autore].push_back(dati.libro);
-
-//    inserimento(raccolta,dati);
 
     menu(scelta);
 	while(scelta != 'X'){
@@ -105,15 +97,39 @@ int main(){
         case '0':
 
             caricaDati();
+            /*for(auto s: studenti){
+                ric_a[s.matricola_studente].push_back(s.descrizione_corso);
+            }
+            */
+
+            for(auto s: studenti){
+                ric_c[s.matricola_studente] = s.descrizione_corso;
+            }
+            for(auto s: studenti){
+                ric_c[s.cognome_studente] = s.descrizione_corso;
+            }
+
             stampa();
 
             break;
 
         case '1':
+                cout << "inserisci la matricola da cercare: ";
+                cin >> matricola;
+                cout << "Corsi: ";
+                /*for(auto s: ric_a[matricola]){
+                    cout << s << endl;
+                }
+                */
+                cout << ric_c[matricola] << endl;
 
             break;
 
         case '2':
+                cout << "inserisci il cognome da cercare: ";
+                cin >> cognome;
+                cout << "Corsi: ";
+                cout << ric_c[cognome] << endl;
 
             break;
 
