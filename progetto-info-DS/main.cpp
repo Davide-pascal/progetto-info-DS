@@ -75,7 +75,7 @@ void caricaDati(){
 }
 
 void stampa() {
-    for ( auto s : studenti) {
+    for (auto s : studenti) {
         cout << "Codice Corso: " << s.codice_corso << ", Descrizione Corso: " << s.descrizione_corso << ", Codice Materia: " << s.codice_materia << ", Descrizione Materia: " << s.descrizione_materia << ", ";
         cout << "Matricola: " << s.matricola_studente << ", Nome: " << s.nome_studente << ", Cognome: " << s.cognome_studente << endl;
     }
@@ -83,10 +83,12 @@ void stampa() {
 
 int main(){
     string matricola;
+    string codice;
     string cognome;
     char scelta;
-    map<string,string> ric_c;
-    map<string,vector<string>> ric_a;
+    map<string,string> descrizione_corso_per_matricola;
+    map<string,string> descrizione_corso_per_cognome;
+    map<string,vector<string>> lista_studenti_per_corso;
     studente dati;
 
     menu(scelta);
@@ -103,11 +105,30 @@ int main(){
             */
 
             for(auto s: studenti){
-                ric_c[s.matricola_studente] = s.descrizione_corso;
+                descrizione_corso_per_matricola[s.matricola_studente] = s.descrizione_corso;
             }
             for(auto s: studenti){
-                ric_c[s.cognome_studente] = s.descrizione_corso;
+                descrizione_corso_per_cognome[s.cognome_studente] = s.descrizione_corso;
             }
+
+            for(studente s: studenti){
+
+                string cognome_studente = s.cognome_studente;
+                string codice_corso = s.codice_corso;
+                vector<string> lista_studenti = lista_studenti_per_corso[codice_corso];
+
+                bool trovato = false;
+                for (string n : lista_studenti) {
+                    if (n == cognome_studente)
+                        trovato = true;
+                }
+                if(!trovato){
+                    // NON E' PRESENTE
+                    lista_studenti_per_corso[codice_corso].push_back(s.cognome_studente);
+                }
+            }
+
+
 
             stampa();
 
@@ -121,7 +142,7 @@ int main(){
                     cout << s << endl;
                 }
                 */
-                cout << ric_c[matricola] << endl;
+                cout << descrizione_corso_per_matricola[matricola] << endl;
 
             break;
 
@@ -129,13 +150,21 @@ int main(){
                 cout << "inserisci il cognome da cercare: ";
                 cin >> cognome;
                 cout << "Corsi: ";
-                cout << ric_c[cognome] << endl;
+                cout << descrizione_corso_per_cognome[cognome] << endl;
 
             break;
 
         case '3':
+                cout << "Inserisci il codice del corso: ";
+                cin >> codice;
+                cout << "Studenti Iscritti: ";
+                cout << endl;
+                for(auto s: lista_studenti_per_corso[codice]){
+                    cout << " - " << s << endl;
+                }
 
             break;
+
 
         case '4':
 
