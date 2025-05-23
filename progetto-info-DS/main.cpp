@@ -83,12 +83,17 @@ void stampa() {
 
 int main(){
     string matricola;
-    string codice;
+    string descrizione;
+    string descrizione_conta;
     string cognome;
+    string codice;
     char scelta;
+    int cont = 0;
     map<string,string> descrizione_corso_per_matricola;
     map<string,string> descrizione_corso_per_cognome;
+    map<string,string> stampa_dati_per_descrizione_corso;
     map<string,vector<string>> lista_studenti_per_corso;
+    map<string,vector<string>> lista_studenti_per_descrizione_corso;
     studente dati;
 
     menu(scelta);
@@ -128,6 +133,23 @@ int main(){
                 }
             }
 
+            for(studente s: studenti){
+
+                string descrizione_corso = s.descrizione_corso;
+                string cognome_studente = s.cognome_studente;
+                vector<string> lista_studenti = lista_studenti_per_descrizione_corso[descrizione_corso];
+
+                bool trovato = false;
+                for (string n : lista_studenti) {
+                    if (n == cognome_studente)
+                        trovato = true;
+                }
+                if(!trovato){
+                    // NON E' PRESENTE
+                    //lista_studenti_per_descrizione_corso[descrizione_corso].push_back();
+                    cont ++;
+                }
+            }
 
 
             stampa();
@@ -166,12 +188,41 @@ int main(){
             break;
 
 
-        case '4':
+        case '4':{
+                cout << "Inserisci la descrizione del corso: ";
+                cin.ignore();
+                getline(cin, descrizione);
 
-            break;
+                cout << "===== Dati esami del corso " << descrizione << " =====" << endl;
+
+                bool trovato = false;
+
+                for (auto &s : studenti){
+                    if (s.descrizione_corso == descrizione) {
+                        trovato = true;
+                        cout << "Materia: " << s.codice_materia << " - " << s.descrizione_materia << endl;
+                        cout << "Studente: " << s.matricola_studente << " - " << s.nome_studente << " " << s.cognome_studente << endl;
+                        cout << "----------------------------------------" << endl;
+                    }
+                }
+
+                if (!trovato) {
+                    cout << "Nessun dato trovato per il codice corso inserito." << endl;
+                }
+
+                break;
+            }
+
 
         case '5':
-
+                cout << "Inserisci descrizione del corso: ";
+                cin.ignore();
+                getline(cin, descrizione_conta);
+                cout << "Studenti Iscritti a questo corso: ";
+                cout << endl;
+                /*for(auto s: lista_studenti_per_corso[descrizione_conta]){
+                }*/
+                cout << cont << endl;
             break;
 
         case '6':
