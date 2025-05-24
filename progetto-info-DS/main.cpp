@@ -87,13 +87,18 @@ int main(){
     string descrizione_conta;
     string cognome;
     string codice;
+    string conta_codice_corso;
+    string stringa;
+    string descrizione_materia;
     char scelta;
     int cont = 0;
+    int i = 0;
     map<string,string> descrizione_corso_per_matricola;
     map<string,string> descrizione_corso_per_cognome;
     map<string,string> stampa_dati_per_descrizione_corso;
     map<string,vector<string>> lista_studenti_per_corso;
     map<string,vector<string>> lista_studenti_per_descrizione_corso;
+    map<string,vector<string>> lista_materie_per_codice_corso;
     studente dati;
 
     menu(scelta);
@@ -120,14 +125,14 @@ int main(){
 
                 string cognome_studente = s.cognome_studente;
                 string codice_corso = s.codice_corso;
-                vector<string> lista_studenti = lista_studenti_per_corso[codice_corso];
+                vector<string> lista_studenti_1 = lista_studenti_per_corso[codice_corso];
 
-                bool trovato = false;
-                for (string n : lista_studenti) {
+                bool trovato_1 = false;
+                for (string n : lista_studenti_1) {
                     if (n == cognome_studente)
-                        trovato = true;
+                        trovato_1 = true;
                 }
-                if(!trovato){
+                if(!trovato_1){
                     // NON E' PRESENTE
                     lista_studenti_per_corso[codice_corso].push_back(s.cognome_studente);
                 }
@@ -137,17 +142,35 @@ int main(){
 
                 string descrizione_corso = s.descrizione_corso;
                 string cognome_studente = s.cognome_studente;
-                vector<string> lista_studenti = lista_studenti_per_descrizione_corso[descrizione_corso];
+                vector<string> lista_studenti_2 = lista_studenti_per_descrizione_corso[descrizione_corso];
 
-                bool trovato = false;
-                for (string n : lista_studenti) {
+                bool trovato_2 = false;
+                for (string n : lista_studenti_2) {
                     if (n == cognome_studente)
-                        trovato = true;
+                        trovato_2 = true;
                 }
-                if(!trovato){
+                if(!trovato_2){
                     // NON E' PRESENTE
                     //lista_studenti_per_descrizione_corso[descrizione_corso].push_back();
                     cont ++;
+                }
+            }
+
+            for(studente s: studenti){
+
+                string codice_corso = s.codice_corso;
+                string descrizione_materia = s.descrizione_materia;
+                vector<string> lista_studenti_3 = lista_materie_per_codice_corso[codice_corso];
+
+                bool trovato_3 = false;
+                for (string x : lista_studenti_3) {
+                    if (x == descrizione_materia)
+                        trovato_3 = true;
+                }
+                if(!trovato_3){
+                    // NON E' PRESENTE
+                    //lista_studenti_per_descrizione_corso[descrizione_corso].push_back();
+                    i ++;
                 }
             }
 
@@ -226,11 +249,22 @@ int main(){
             break;
 
         case '6':
-
+                cout << "Inserisci codice del corso: ";
+                cin.ignore();
+                getline(cin, conta_codice_corso);
+                cout << "Materie presenti nel corso: ";
+                cout << endl;
+                /*for(auto s: lista_studenti_per_corso[descrizione_conta]){
+                }*/
+                cout << i << endl;
             break;
 
         case '7':
-
+                /*cout << "Inserisci una stringa: ";
+                cin.ignore();
+                getline(cin, stringa);
+                if(descrizione_materia.find() == )
+                                                                            non va, riguarda funzione 6 e 7*/
             break;
 
         case '8':
